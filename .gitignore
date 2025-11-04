@@ -62,7 +62,6 @@ venv.bak/
 *.pth
 *.ckpt
 *.weights
-*.h5
 *.model
 
 # Logs
