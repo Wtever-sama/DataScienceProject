@@ -1,3 +1,4 @@
+'''build model using SMO algorithm'''
 from sklearn.svm import SVC
 
 def model(params: dict|None=None)-> SVC:

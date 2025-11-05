@@ -1,17 +1,18 @@
+'''process source data from text files into vectors, which can be used for training and testing'''
 from stop_symbol import stopwords_
 
-# 尝试导入并下载NLTK stopwords数据
+# try downloading NLTK stopwords if available
 try:
     from nltk.corpus import stopwords
     stopwords_nltk = set(stopwords.words('english'))
-    
-    # 合并停用词
+
+    # merge stopwords
     stopwords = stopwords_nltk.union(stopwords_)
 except LookupError:
-    # 如果无法加载NLTK数据，则仅使用本地停用词
+    # if failed, use stopwords_ only
     stopwords = set(stopwords_)
     import nltk
-    # 尝试下载数据，但不强制要求成功
+    # try downloading data, but don't require it to succeed
     try:
         nltk.download('punkt', quiet=True)
     except:
@@ -21,7 +22,7 @@ def _strip_punctuation(text: str)-> str:
     """
     Strip punctuation from a string
     """
-    # 使用简单的split()替代word_tokenize
+    # replace `word_tokenize with` simple split and filter
     words = text.lower().split()
     filtered_words = [w for w in words if w not in stopwords and w.isalnum()]
     return " ".join(filtered_words)
@@ -44,7 +45,7 @@ def _load_src_data(baseball_dir: str, hockey_dir: str)-> tuple[list[str], list[s
             with open(file_path, 'r', encoding='utf-8') as file:
                 text = file.read()
         except UnicodeDecodeError:
-            # 如果UTF-8解码失败，尝试其他编码
+            # try other encoding if UTF-8 fails
             with open(file_path, 'r', encoding='latin-1') as file:
                 text = file.read()
         baseball_data.append(_strip_punctuation(text))
@@ -55,7 +56,7 @@ def _load_src_data(baseball_dir: str, hockey_dir: str)-> tuple[list[str], list[s
             with open(file_path, 'r', encoding='utf-8') as file:
                 text = file.read()
         except UnicodeDecodeError:
-            # 如果UTF-8解码失败，尝试其他编码
+            # try other encoding if UTF-8 fails
             with open(file_path, 'r', encoding='latin-1') as file:
                 text = file.read()
         hockey_data.append(_strip_punctuation(text))

@@ -1,3 +1,4 @@
+'''evaluate model performance using various metrics'''
 from sklearn import metrics
 
 def evaluate_model(y_true: list, y_pred: list)-> dict:

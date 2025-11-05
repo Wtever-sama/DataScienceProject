@@ -1,3 +1,4 @@
+'''define stop symbols and words to be filtered out during text processing'''
 stopwords_ = set([
 'From',
 'from',
